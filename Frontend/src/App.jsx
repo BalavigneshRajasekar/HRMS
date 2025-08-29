@@ -1,16 +1,16 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import { Provider, useSelector } from "react-redux";
+
+import AppRoutes from "./routers/AppRoutes";
+import Home from "./pages/Home";
+import employeeStore from "./store/employeeStore";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div>
-        <h1 className="bg-amber-600">HRMS</h1>
-      </div>
+      <Provider store={employeeStore}>
+        <AppRoutes></AppRoutes>
+      </Provider>
     </>
   );
 }

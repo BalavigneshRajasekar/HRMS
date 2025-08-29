@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com",
+    "DOJ": "2025-01-01",
+    "role": "SDE1",
+    "Department": "Development",
+    "status": "active"
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "email": "jane@example.com",
+    "DOJ": "2024-11-15",
+    "role": "SDE2",
+    "Department": "Development",
+    "status": "active"
+  },
+  {
+    "id": 3,
+    "name": "Michael Johnson",
+    "email": "michael@example.com",
+    "DOJ": "2023-06-10",
+    "role": "QA Engineer",
+    "Department": "Testing",
+    "status": "inactive"
+  },
+  {
+    "id": 4,
+    "name": "Emily Davis",
+    "email": "emily@example.com",
+    "DOJ": "2022-09-21",
+    "role": "HR Executive",
+    "Department": "Human Resources",
+    "status": "active"
+  },
+  {
+    "id": 5,
+    "name": "Robert Brown",
+    "email": "robert@example.com",
+    "DOJ": "2021-12-01",
+    "role": "Manager",
+    "Department": "Operations",
+    "status": "active"
+  },
+  {
+    "id": 6,
+    "name": "Sophia Wilson",
+    "email": "sophia@example.com",
+    "DOJ": "2023-03-17",
+    "role": "Intern",
+    "Department": "Development",
+    "status": "active"
+  },
+  {
+    "id": 7,
+    "name": "David Miller",
+    "email": "david@example.com",
+    "DOJ": "2020-07-30",
+    "role": "Tech Lead",
+    "Department": "Development",
+    "status": "inactive"
+  },
+  {
+    "id": 8,
+    "name": "Olivia Taylor",
+    "email": "olivia@example.com",
+    "DOJ": "2024-04-12",
+    "role": "UI/UX Designer",
+    "Department": "Design",
+    "status": "active"
+  },
+  {
+    "id": 9,
+    "name": "Daniel Anderson",
+    "email": "daniel@example.com",
+    "DOJ": "2019-10-05",
+    "role": "Product Manager",
+    "Department": "Operations",
+    "status": "inactive"
+  },
+  {
+    "id": 10,
+    "name": "Ava Martinez",
+    "email": "ava@example.com",
+    "DOJ": "2025-02-20",
+    "role": "SDE1",
+    "Department": "Development",
+    "status": "active"
+  }
+]
