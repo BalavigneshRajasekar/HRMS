@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import Nav from "../Components/Nav";
+import EmployeeTable from "../Components/EmployeeTable";
 
 function Home() {
   const employees = useSelector((store) => store.employee.employeesData);
@@ -8,7 +10,10 @@ function Home() {
   }, []);
   return (
     <>
-      <h1>Employee data</h1>
+      <Nav />
+      <div>
+        <EmployeeTable employees={employees}></EmployeeTable>
+      </div>
     </>
   );
 }
