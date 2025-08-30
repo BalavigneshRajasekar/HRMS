@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addEmployee, closeFormModel } from "../store/employeeReducer";
+import {
+  addEmployee,
+  closeFormModel,
+  updateEditedEmployee,
+} from "../store/employeeReducer";
 
 function Form() {
   const { formModal, editEmployee } = useSelector((store) => store.employee);
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    DOJ: "",
-    role: "",
-    Department: "",
-    status: "",
-  });
+  const [formData, setFormData] = useState();
   const [formError, setFormError] = useState({
     name: null,
     email: null,
@@ -22,6 +19,21 @@ function Form() {
     status: null,
   });
 
+  useEffect(() => {
+    // If editEmployee is set, populate formData with its values; otherwise set default
+    if (editEmployee) {
+      setFormData(editEmployee);
+    } else {
+      setFormData({
+        name: "",
+        email: "",
+        DOJ: "",
+        role: "",
+        Department: "",
+        status: "",
+      });
+    }
+  }, [editEmployee]);
   //Update data to the local form state
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -70,6 +82,16 @@ function Form() {
       });
     }
   };
+
+  //Edit form submit handler
+  const edit = (e) => {
+    e.preventDefault();
+
+    if (formValidation()) {
+      console.log("Form submitted", formData);
+      dispatch(updateEditedEmployee(formData));
+    }
+  };
   return (
     <>
       {/* Modal */}
@@ -88,12 +110,16 @@ function Form() {
               {editEmployee ? "Edit Employee Data" : "Add New Employee"}
             </h2>
 
-            <form noValidate className="space-y-4" onSubmit={handleSubmit}>
+            <form
+              noValidate
+              className="space-y-4"
+              onSubmit={editEmployee ? edit : handleSubmit}
+            >
               <input
                 type="text"
                 name="name"
                 placeholder="Employee Name"
-                value={editEmployee ? editEmployee.name : formData.name}
+                value={formData.name}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-200"
                 required
@@ -105,7 +131,7 @@ function Form() {
                 type="email"
                 name="email"
                 placeholder="Email"
-                value={editEmployee ? editEmployee.email : formData.email}
+                value={formData.email}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-200"
                 required
@@ -116,7 +142,7 @@ function Form() {
               <input
                 type="date"
                 name="DOJ"
-                value={editEmployee ? editEmployee.DOJ : formData.DOJ}
+                value={formData.DOJ}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-200"
                 required
@@ -128,7 +154,7 @@ function Form() {
                 type="text"
                 name="role"
                 placeholder="Role"
-                value={editEmployee ? editEmployee.role : formData.role}
+                value={formData.role}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-3 py-2"
               />
@@ -137,9 +163,7 @@ function Form() {
               )}
               <select
                 name="Department"
-                value={
-                  editEmployee ? editEmployee.Department : formData.Department
-                }
+                value={formData.Department}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-3 py-2"
               >
@@ -147,15 +171,15 @@ function Form() {
                 <option value="Development">Development</option>
                 <option value="Testing">Testing</option>
                 <option value="Human Resource">Human Resource</option>
-                <option value="Operation">Operation</option>
-                <option value="Designing">Designing</option>
+                <option value="Operations">Operations</option>
+                <option value="Design">Design</option>
               </select>
               {formError.Department && (
                 <p className="text-red-400 -mt-3">{formError.Department}</p>
               )}
               <select
                 name="status"
-                value={editEmployee ? editEmployee.status : formData.status}
+                value={formData.status}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-3 py-2"
               >

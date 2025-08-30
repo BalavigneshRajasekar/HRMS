@@ -32,9 +32,25 @@ const employeeReducer = createSlice({
       state.editEmployee = action.payload;
       state.formModal = true;
     },
+    updateEditedEmployee: (state, action) => {
+      //Get the index of the employee to be updated
+      const index = state.employeesData.findIndex(
+        (emp) => emp.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.employeesData[index] = action.payload;
+      }
+      state.editEmployee = null;
+      state.formModal = false;
+    },
   },
 });
 
-export const { addEmployee, openFormModel, closeFormModel, setEditEmployee } =
-  employeeReducer.actions;
+export const {
+  addEmployee,
+  openFormModel,
+  closeFormModel,
+  setEditEmployee,
+  updateEditedEmployee,
+} = employeeReducer.actions;
 export default employeeReducer.reducer;
