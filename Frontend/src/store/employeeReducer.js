@@ -21,18 +21,22 @@ const employeeReducer = createSlice({
 
       state.employeesData.push(action.payload);
     },
+    //Open the form model and close
     openFormModel: (state, action) => {
       state.editEmployee = null;
       state.formModal = state.formModal == false ? true : false;
     },
+    //Work for only close the form model
     closeFormModel: (state, action) => {
       state.formModal = false;
     },
+    //Set the employee to be edited and open the form model
     setEditEmployee: (state, action) => {
       console.log(action.payload);
       state.editEmployee = action.payload;
       state.formModal = true;
     },
+    //Update the edited employee details
     updateEditedEmployee: (state, action) => {
       //Get the index of the employee to be updated
       const index = state.employeesData.findIndex(
@@ -44,6 +48,7 @@ const employeeReducer = createSlice({
       state.editEmployee = null;
       state.formModal = false;
     },
+
     searchEmployee: (state, action) => {
       const searchTerm = action.payload.toLowerCase();
       // If search term is empty, it clear the filter data

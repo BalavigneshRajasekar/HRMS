@@ -39,6 +39,7 @@ function Form() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setFormError({ ...formError, [e.target.name]: null });
   };
+
   // Function to handle form validation
   const formValidation = () => {
     // Local variable to hold errors for immediate return
