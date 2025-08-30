@@ -38,9 +38,9 @@ function SearchAndFilter() {
             onChange={filter}
           >
             <option value="">Filter</option>
-            <option value="Human Resource">Human Resource</option>
+            <option value="Human Resources">Human Resource</option>
             <option value="Development">Development</option>
-            <option value="Testings">Testing</option>
+            <option value="Testing">Testing</option>
             <option value="Operations">Operations</option>
             <option value="Design">Design</option>
           </select>

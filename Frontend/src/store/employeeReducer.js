@@ -3,7 +3,9 @@ import data from "../employeeData.json";
 const employeeReducer = createSlice({
   name: "employee",
   initialState: {
-    employeesData: data,
+    employeesData: localStorage.getItem("employees")
+      ? JSON.parse(localStorage.getItem("employees"))
+      : data,
     filteredEmployeeData: null, // For search and filter functionality
     formModal: false,
     editEmployee: null,
@@ -20,6 +22,7 @@ const employeeReducer = createSlice({
           });
 
       state.employeesData.push(action.payload);
+      localStorage.setItem("employees", JSON.stringify(state.employeesData));
     },
     //Open the form model and close
     openFormModel: (state, action) => {
@@ -45,6 +48,7 @@ const employeeReducer = createSlice({
       if (index !== -1) {
         state.employeesData[index] = action.payload;
       }
+      localStorage.setItem("employees", JSON.stringify(state.employeesData));
       state.editEmployee = null;
       state.formModal = false;
     },

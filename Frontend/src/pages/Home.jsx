@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Nav from "../Components/Nav";
 import EmployeeTable from "../Components/EmployeeTable";
 import SearchAndFilter from "../Components/SearchAndFilter";
@@ -7,12 +7,11 @@ import Form from "../Components/Form";
 
 function Home() {
   const employees = useSelector((store) => store.employee.employeesData);
+
   const filteredEmployee = useSelector(
     (store) => store.employee.filteredEmployeeData
   );
-  useEffect(() => {
-    console.log(employees);
-  }, [employees]);
+  useEffect(() => {}, [employees]);
   return (
     <>
       <Nav />
