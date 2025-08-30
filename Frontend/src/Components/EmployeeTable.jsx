@@ -1,9 +1,20 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { openFormModel } from "../store/employeeReducer";
 
 function EmployeeTable({ employees }) {
+  const dispatch = useDispatch();
   return (
     <div className="overflow-x-auto p-4 ">
-      <table className="min-w-full border border-gray-300 rounded-lg shadow-lg bg-white">
+      <div>
+        <button
+          className="active:scale-75 transition-all"
+          onClick={() => dispatch(openFormModel())}
+        >
+          Add employee
+        </button>
+      </div>
+      <table className="min-w-full border border-gray-300 rounded-lg shadow-lg bg-white mt-4 overflow-scroll">
         <thead className="bg-gray-100 text-gray-700">
           <tr>
             <th className="px-6 py-3 text-left text-sm font-semibold">ID</th>
@@ -14,6 +25,9 @@ function EmployeeTable({ employees }) {
             </th>
             <th className="px-6 py-3 text-left text-sm font-semibold">
               Status
+            </th>
+            <th className="px-6 py-3 text-left text-sm font-semibold">
+              Action
             </th>
           </tr>
         </thead>
@@ -33,6 +47,11 @@ function EmployeeTable({ employees }) {
                 }`}
               >
                 {emp.status}
+              </td>
+              <td>
+                <button className="px-5 bg-yellow-500 text-sm active:scale-90 transition-all">
+                  Edit
+                </button>
               </td>
             </tr>
           ))}
