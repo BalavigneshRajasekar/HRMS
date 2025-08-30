@@ -4,9 +4,17 @@ import { searchEmployee } from "../store/employeeReducer";
 
 function SearchAndFilter() {
   const dispatch = useDispatch();
+  let debounceTimer;
+
+  // Debounced search function
   const search = (e) => {
-    console.log(e.target.value);
-    dispatch(searchEmployee(e.target.value));
+    const value = e.target.value;
+    clearTimeout(debounceTimer); // clear previous timer
+
+    debounceTimer = setTimeout(() => {
+      console.log("Searching for:", value);
+      dispatch(searchEmployee(value)); // only runs after 500ms
+    }, 500);
   };
   return (
     <>
