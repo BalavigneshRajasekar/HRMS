@@ -7,6 +7,9 @@ import Form from "../Components/Form";
 
 function Home() {
   const employees = useSelector((store) => store.employee.employeesData);
+  const filteredEmployee = useSelector(
+    (store) => store.employee.filteredEmployeeData
+  );
   useEffect(() => {
     console.log(employees);
   }, [employees]);
@@ -16,7 +19,9 @@ function Home() {
 
       <div className="p-10">
         <SearchAndFilter></SearchAndFilter>
-        <EmployeeTable employees={employees}></EmployeeTable>
+        <EmployeeTable
+          employees={filteredEmployee ? filteredEmployee : employees}
+        ></EmployeeTable>
         <Form></Form>
       </div>
     </>

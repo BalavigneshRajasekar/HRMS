@@ -4,6 +4,7 @@ const employeeReducer = createSlice({
   name: "employee",
   initialState: {
     employeesData: data,
+    filteredEmployeeData: null, // For search and filter functionality
     formModal: false,
     editEmployee: null,
   },
@@ -43,6 +44,20 @@ const employeeReducer = createSlice({
       state.editEmployee = null;
       state.formModal = false;
     },
+    searchEmployee: (state, action) => {
+      const searchTerm = action.payload.toLowerCase();
+      // If search term is empty, it clear the filter data
+      //So original data will be displayed in the table
+      if (searchTerm === "") {
+        state.filteredEmployeeData = null;
+        return;
+      }
+      state.filteredEmployeeData = state.employeesData.filter(
+        (emp) =>
+          emp.name.toLowerCase().includes(searchTerm) ||
+          emp.email.toLowerCase().includes(searchTerm)
+      );
+    },
   },
 });
 
@@ -52,5 +67,6 @@ export const {
   closeFormModel,
   setEditEmployee,
   updateEditedEmployee,
+  searchEmployee,
 } = employeeReducer.actions;
 export default employeeReducer.reducer;
