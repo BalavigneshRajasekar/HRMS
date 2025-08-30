@@ -31,34 +31,44 @@ function EmployeeTable({ employees }) {
             </th>
           </tr>
         </thead>
-        <tbody>
-          {employees.map((emp) => (
-            <tr
-              key={emp.id}
-              className="hover:bg-gray-50 transition-colors border-t"
-            >
-              <td className="px-6 py-3 text-sm">{emp.id}</td>
-              <td className="px-6 py-3 text-sm font-medium">{emp.name}</td>
-              <td className="px-6 py-3 text-sm">{emp.role}</td>
-              <td className="px-6 py-3 text-sm">{emp.Department}</td>
-              <td
-                className={`px-6 py-3 text-sm font-semibold ${
-                  emp.status === "active" ? "text-green-600" : "text-red-600"
-                }`}
+        {employees.length > 0 ? (
+          <tbody>
+            {employees.map((emp) => (
+              <tr
+                key={emp.id}
+                className="hover:bg-gray-50 transition-colors border-t"
               >
-                {emp.status}
-              </td>
-              <td>
-                <button
-                  className="px-5 bg-yellow-500 text-sm active:scale-90 transition-all"
-                  onClick={() => dispatch(setEditEmployee(emp))}
+                <td className="px-6 py-3 text-sm">{emp.id}</td>
+                <td className="px-6 py-3 text-sm font-medium">{emp.name}</td>
+                <td className="px-6 py-3 text-sm">{emp.role}</td>
+                <td className="px-6 py-3 text-sm">{emp.Department}</td>
+                <td
+                  className={`px-6 py-3 text-sm font-semibold ${
+                    emp.status === "active" ? "text-green-600" : "text-red-600"
+                  }`}
                 >
-                  Edit
-                </button>
+                  {emp.status}
+                </td>
+                <td>
+                  <button
+                    className="px-5 bg-yellow-500 text-sm active:scale-90 transition-all"
+                    onClick={() => dispatch(setEditEmployee(emp))}
+                  >
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        ) : (
+          <tbody>
+            <tr>
+              <td colSpan="6" className="text-center p-4 text-gray-500">
+                No employees found.
               </td>
             </tr>
-          ))}
-        </tbody>
+          </tbody>
+        )}
       </table>
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { searchEmployee } from "../store/employeeReducer";
+import { filterEmployee, searchEmployee } from "../store/employeeReducer";
 
 function SearchAndFilter() {
   const dispatch = useDispatch();
@@ -16,6 +16,11 @@ function SearchAndFilter() {
       dispatch(searchEmployee(value)); // only runs after 500ms
     }, 500);
   };
+
+  const filter = (e) => {
+    const value = e.target.value;
+    dispatch(filterEmployee(value));
+  };
   return (
     <>
       <div className="p-4 md:flex justify-between ">
@@ -28,12 +33,16 @@ function SearchAndFilter() {
           />
         </div>
         <div className="mt-4 md:mt-0">
-          <select className="border border-gray-300 rounded-md p-2">
+          <select
+            className="border border-gray-300 rounded-md p-2"
+            onChange={filter}
+          >
             <option value="">Filter</option>
-            <option value="HR">HR</option>
-            <option value="Engineering">Engineering</option>
-            <option value="Sales">Sales</option>
-            <option value="Marketing">Marketing</option>
+            <option value="Human Resource">Human Resource</option>
+            <option value="Development">Development</option>
+            <option value="Testings">Testing</option>
+            <option value="Operations">Operations</option>
+            <option value="Design">Design</option>
           </select>
         </div>
       </div>

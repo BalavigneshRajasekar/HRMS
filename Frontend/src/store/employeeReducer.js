@@ -58,6 +58,16 @@ const employeeReducer = createSlice({
           emp.email.toLowerCase().includes(searchTerm)
       );
     },
+    filterEmployee: (state, action) => {
+      const filterTerm = action.payload;
+      if (filterTerm === "") {
+        state.filteredEmployeeData = null;
+        return;
+      }
+      state.filteredEmployeeData = state.employeesData.filter(
+        (emp) => emp.Department === filterTerm
+      );
+    },
   },
 });
 
@@ -68,5 +78,6 @@ export const {
   setEditEmployee,
   updateEditedEmployee,
   searchEmployee,
+  filterEmployee,
 } = employeeReducer.actions;
 export default employeeReducer.reducer;
