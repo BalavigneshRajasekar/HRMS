@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addEmployee, closeFormModel } from "../store/employeeReducer";
 
 function Form() {
   const { formModal, editEmployee } = useSelector((store) => store.employee);
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,6 +21,8 @@ function Form() {
     Department: null,
     status: null,
   });
+
+  //Update data to the local form state
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setFormError({ ...formError, [e.target.name]: null });
@@ -34,7 +38,10 @@ function Form() {
         : null,
       name:
         formData.name.trim() === "" ? "* please enter a Employee name" : null,
-      DOJ: formData.DOJ === "" ? "* please select a valid DOJ" : null,
+      DOJ:
+        formData.DOJ === "" || new Date(formData.DOJ) >= new Date()
+          ? "* please select a valid  DOJ"
+          : null,
       role: formData.role.trim() === "" ? "* please enter a Role" : null,
       Department:
         formData.Department === "" ? "* please select a department" : null,
@@ -45,25 +52,37 @@ function Form() {
     // Here we use Local variable to calculate return response
     return Object.values(newErrors).every((error) => error === null);
   };
+
+  //Send form data to store if validation is success
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formValidation()) {
       console.log("Form submitted", formData);
+      dispatch(addEmployee(formData));
+      dispatch(closeFormModel());
+      setFormData({
+        name: "",
+        email: "",
+        DOJ: "",
+        role: "",
+        Department: "",
+        status: "",
+      });
     }
   };
   return (
     <>
       {/* Modal */}
       {formModal && (
-        <div className={`style flex items-center justify-center  `}>
+        <div className={`style min-w-96`}>
           <div className="bg-white rounded-lg shadow-lg  max-w-md p-6 relative">
             {/* Close button */}
-            <button
-              onClick={() => setIsOpen(false)}
-              className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+            <span
+              onClick={() => dispatch(closeFormModel())}
+              className="absolute top-3 right-3 text-red-600 font-bold cursor-pointer text-lg bg-blue-200 p-2 px-4 active:scale-90 transition-all rounded-full"
             >
-              ✖
-            </button>
+              X
+            </span>
 
             <h2 className="text-xl font-bold mb-4">
               {editEmployee ? "Edit Employee Data" : "Add New Employee"}
@@ -74,7 +93,7 @@ function Form() {
                 type="text"
                 name="name"
                 placeholder="Employee Name"
-                value={formData.name}
+                value={editEmployee ? editEmployee.name : formData.name}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-200"
                 required
@@ -86,7 +105,7 @@ function Form() {
                 type="email"
                 name="email"
                 placeholder="Email"
-                value={formData.email}
+                value={editEmployee ? editEmployee.email : formData.email}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-200"
                 required
@@ -97,7 +116,7 @@ function Form() {
               <input
                 type="date"
                 name="DOJ"
-                value={formData.DOJ}
+                value={editEmployee ? editEmployee.DOJ : formData.DOJ}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-200"
                 required
@@ -109,7 +128,7 @@ function Form() {
                 type="text"
                 name="role"
                 placeholder="Role"
-                value={formData.role}
+                value={editEmployee ? editEmployee.role : formData.role}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-3 py-2"
               />
@@ -118,7 +137,9 @@ function Form() {
               )}
               <select
                 name="Department"
-                value={formData.Department}
+                value={
+                  editEmployee ? editEmployee.Department : formData.Department
+                }
                 onChange={handleChange}
                 className="w-full border rounded-lg px-3 py-2"
               >
@@ -134,7 +155,7 @@ function Form() {
               )}
               <select
                 name="status"
-                value={formData.status}
+                value={editEmployee ? editEmployee.status : formData.status}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-3 py-2"
               >

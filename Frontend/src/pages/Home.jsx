@@ -9,7 +9,7 @@ function Home() {
   const employees = useSelector((store) => store.employee.employeesData);
   useEffect(() => {
     console.log(employees);
-  }, []);
+  }, [employees]);
   return (
     <>
       <Nav />

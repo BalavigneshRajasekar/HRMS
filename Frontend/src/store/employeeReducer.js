@@ -9,14 +9,32 @@ const employeeReducer = createSlice({
   },
   reducers: {
     addEmployee: (state, action) => {
-      console.log("Employee Added");
+      // Assign ID based on current length of employeesData
+      // We only make employee active or inactive instead of delete so it will work
+      state.employeesData.length === 0
+        ? (action.payload = { ...action.payload, id: 1 })
+        : (action.payload = {
+            ...action.payload,
+            id: state.employeesData.length + 1,
+          });
+
       state.employeesData.push(action.payload);
     },
     openFormModel: (state, action) => {
+      state.editEmployee = null;
       state.formModal = state.formModal == false ? true : false;
+    },
+    closeFormModel: (state, action) => {
+      state.formModal = false;
+    },
+    setEditEmployee: (state, action) => {
+      console.log(action.payload);
+      state.editEmployee = action.payload;
+      state.formModal = true;
     },
   },
 });
 
-export const { addEmployee, openFormModel } = employeeReducer.actions;
+export const { addEmployee, openFormModel, closeFormModel, setEditEmployee } =
+  employeeReducer.actions;
 export default employeeReducer.reducer;

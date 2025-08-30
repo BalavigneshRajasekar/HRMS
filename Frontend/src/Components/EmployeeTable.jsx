@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { openFormModel } from "../store/employeeReducer";
+import { openFormModel, setEditEmployee } from "../store/employeeReducer";
 
 function EmployeeTable({ employees }) {
   const dispatch = useDispatch();
@@ -49,7 +49,10 @@ function EmployeeTable({ employees }) {
                 {emp.status}
               </td>
               <td>
-                <button className="px-5 bg-yellow-500 text-sm active:scale-90 transition-all">
+                <button
+                  className="px-5 bg-yellow-500 text-sm active:scale-90 transition-all"
+                  onClick={() => dispatch(setEditEmployee(emp))}
+                >
                   Edit
                 </button>
               </td>
